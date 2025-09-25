@@ -34,4 +34,17 @@ public class CustomerService {
 
         return customers;
     }
+
+    public Customer getCustomerById(String id) {
+        // Check if customer exists or not
+        log.info("START - getCustomerById, id: {}", id);
+
+        var customer = customerRepository.findById(id).orElseThrow(() -> {
+            log.error("Customer not found, id: {}", id);
+            return new RuntimeException("Customer not found");
+        });
+
+        log.info("END - getCustomerById");
+        return customer;
+    }
 }
