@@ -1,10 +1,10 @@
 services:
   elasticsearch:
-    image: elasticsearch:8.17.1
+    image: elasticsearch:9.1.4
     container_name: elasticsearch
     restart: always
     volumes:
-      - elastic_data:/usr/share/elasticsearch/data/
+      - ./elastic_data:/usr/share/elasticsearch/data/
     environment:
       - xpack.security.enabled=false  # Disable security for local development
       - ES_JAVA_OPTS=-Xmx256m -Xms256m
@@ -15,7 +15,7 @@ services:
       - elk-network
 
   logstash:
-    image: logstash:8.17.1
+    image: logstash:9.1.4
     container_name: logstash
     restart: always
     volumes:
@@ -31,7 +31,7 @@ services:
       - elk-network
 
   kibana:
-    image: kibana:8.17.1
+    image: kibana:9.1.4
     container_name: kibana
     restart: always
     ports:
@@ -43,9 +43,26 @@ services:
     networks:
       - elk-network
 
+  mysql:
+    image: mysql:9.4.0
+    container_name: mysql
+    restart: always
+    ports:
+      - '3308:3306'
+    environment:
+      - MYSQL_ROOT_PASSWORD=53cret
+      - MYSQL_DATABASE=customer-service-db
+      - MYSQL_USER=yu71
+      - MYSQL_PASSWORD=53cret
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+    networks:
+      - elk-network
+
 networks:
   elk-network:
     driver: bridge
 
 volumes:
   elastic_data: { }
+  mysql_data: { }

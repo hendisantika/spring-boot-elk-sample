@@ -13,10 +13,11 @@ spring:
     show-sql: true
 
   datasource:
-    url: jdbc:mysql://localhost:3306/customer-service-db
+    url: jdbc:mysql://mysql:3306/customer-service-db
     username: yu71
     password: 53cret
     driver-class-name: com.mysql.cj.jdbc.Driver
+
 
 server:
   port: 8080

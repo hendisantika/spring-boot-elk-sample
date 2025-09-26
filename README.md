@@ -8,9 +8,9 @@ Elasticsearch, Logstash, and Kibana) for centralized logging and monitoring.
 This project showcases a modern logging architecture using:
 
 - **Spring Boot 3.5.6** - Main application framework
-- **Elasticsearch 8.17.1** - Search and analytics engine for log storage
-- **Logstash 8.17.1** - Log processing pipeline for parsing and transforming logs
-- **Kibana 8.17.1** - Visualization and analytics dashboard
+- **Elasticsearch 9.1.4** - Search and analytics engine for log storage
+- **Logstash 9.1.4** - Log processing pipeline for parsing and transforming logs
+- **Kibana 9.1.4** - Visualization and analytics dashboard
 - **MySQL** - Primary database for application data
 - **Logback with Logstash Encoder** - Structured logging in JSON format
 
@@ -51,9 +51,9 @@ Before running this application, ensure you have:
 
 ### Infrastructure
 
-- **Elasticsearch 8.17.1** - Document storage and search
-- **Logstash 8.17.1** - Log processing pipeline
-- **Kibana 8.17.1** - Data visualization
+- **Elasticsearch 9.1.4** - Document storage and search
+- **Logstash 9.1.4** - Log processing pipeline
+- **Kibana 9.1.4** - Data visualization
 - **Docker Compose** - Container orchestration
 
 ## 🚀 Quick Start
