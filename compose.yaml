@@ -1,6 +1,6 @@
 services:
   elasticsearch:
-    image: elasticsearch:9.1.4
+    image: elasticsearch:9.5.5
     container_name: elasticsearch
     restart: always
     volumes:
@@ -15,7 +15,7 @@ services:
       - elk-network
 
   logstash:
-    image: logstash:9.1.4
+    image: logstash:9.5.5
     container_name: logstash
     restart: always
     volumes:
@@ -31,7 +31,7 @@ services:
       - elk-network
 
   kibana:
-    image: kibana:9.1.4
+    image: kibana:9.5.5
     container_name: kibana
     restart: always
     ports:
