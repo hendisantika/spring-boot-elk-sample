@@ -1,5 +1,6 @@
 version: 2
 updates:
+  # Maven dependencies (pom.xml)
   - package-ecosystem: maven
     directory: "/"
     schedule:
@@ -7,10 +8,60 @@ updates:
       time: '05:00'
       timezone: Asia/Jakarta
     open-pull-requests-limit: 10
-  - package-ecosystem: "github-actions"
+    commit-message:
+      prefix: "build(deps)"
+      prefix-development: "build(deps-dev)"
+      include: scope
+    groups:
+      spring-boot:
+        patterns:
+          - "org.springframework.boot*"
+      maven-minor-and-patch:
+        update-types:
+          - minor
+          - patch
+
+  # GitHub Actions workflows (.github/workflows)
+  - package-ecosystem: github-actions
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: daily
       time: '05:00'
       timezone: Asia/Jakarta
     open-pull-requests-limit: 10
+    commit-message:
+      prefix: "ci(deps)"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+
+  # Base image in Dockerfile
+  - package-ecosystem: docker
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+      time: '05:00'
+      timezone: Asia/Jakarta
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "build(docker)"
+
+  # ELK stack and MySQL images in compose.yaml
+  - package-ecosystem: docker-compose
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+      time: '05:00'
+      timezone: Asia/Jakarta
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "build(docker)"
+    groups:
+      elastic-stack:
+        patterns:
+          - "elasticsearch"
+          - "logstash"
+          - "kibana"
