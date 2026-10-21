@@ -1,5 +1,9 @@
 # Spring Boot ELK Stack Sample
 
+[![Java CI with Maven](https://github.com/hendisantika/spring-boot-elk-sample/actions/workflows/maven.yml/badge.svg)](https://github.com/hendisantika/spring-boot-elk-sample/actions/workflows/maven.yml)
+![Java](https://img.shields.io/badge/Java-25-orange)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.1.1-brightgreen)
+
 A comprehensive sample application demonstrating the integration of **Spring Boot** with the **ELK Stack** (
 Elasticsearch, Logstash, and Kibana) for centralized logging and monitoring.
 
@@ -7,11 +11,12 @@ Elasticsearch, Logstash, and Kibana) for centralized logging and monitoring.
 
 This project showcases a modern logging architecture using:
 
-- **Spring Boot 3.5.6** - Main application framework
+- **Java 25** - Language runtime (LTS)
+- **Spring Boot 4.1.1** - Main application framework
 - **Elasticsearch 9.1.4** - Search and analytics engine for log storage
 - **Logstash 9.1.4** - Log processing pipeline for parsing and transforming logs
 - **Kibana 9.1.4** - Visualization and analytics dashboard
-- **MySQL** - Primary database for application data
+- **MySQL 9.4.0** - Primary database for application data
 - **Logback with Logstash Encoder** - Structured logging in JSON format
 
 ## 🚀 Features
@@ -28,7 +33,7 @@ This project showcases a modern logging architecture using:
 
 Before running this application, ensure you have:
 
-- **Java 25** or higher
+- **JDK 25** or higher (e.g. Temurin or Amazon Corretto 25)
 - **Maven 3.6+**
 - **Docker** and **Docker Compose**
 - **MySQL** (configured via Docker Compose)
@@ -37,7 +42,7 @@ Before running this application, ensure you have:
 
 ### Backend
 
-- **Spring Boot 3.5.6** - Application framework
+- **Spring Boot 4.1.1** - Application framework
 - **Spring Data JPA** - Data persistence layer
 - **Spring Web** - REST API development
 - **MySQL Connector/J** - Database connectivity
@@ -45,7 +50,7 @@ Before running this application, ensure you have:
 
 ### Logging & Monitoring
 
-- **Logstash Logback Encoder 8.1** - JSON structured logging
+- **Logstash Logback Encoder 9.0** - JSON structured logging
 - **SLF4J** - Logging facade
 - **Logback** - Logging implementation
 
@@ -128,7 +133,12 @@ spring-boot-elk-sample/
 │   │   └── resources/
 │   │       ├── application.yml      # Application configuration
 │   │       └── logback-spring.xml   # Logging configuration
-│   └── test/                        # Unit and integration tests
+│   └── test/
+│       ├── java/                    # Tests
+│       └── resources/
+│           ├── application.yml      # Test config (in-memory H2)
+│           └── logback-test.xml     # Console-only logging for tests
+├── .github/workflows/maven.yml      # GitHub Actions CI (JDK 25)
 ├── compose.yaml                     # Docker Compose configuration
 ├── Dockerfile                       # Application containerization
 └── pom.xml                         # Maven dependencies
@@ -194,11 +204,17 @@ Run the test suite:
 ./mvnw test
 ```
 
-The project includes:
+Tests are self-contained and need neither Docker nor the ELK stack:
 
-- Unit tests for service layer
-- Integration tests for API endpoints
-- Repository tests with in-memory database
+- The test profile (`src/test/resources/application.yml`) uses an **in-memory H2** database instead of MySQL
+- Docker Compose support is disabled during tests
+- `logback-test.xml` logs to the console only, so tests don't wait on Logstash at `localhost:5044`
+
+## ⚙️ Continuous Integration
+
+Every push and pull request to `main` runs the [Java CI with Maven](.github/workflows/maven.yml) workflow on
+GitHub Actions. It sets up **Temurin JDK 25**, builds and tests the project with `mvn -B package`, and submits the
+Maven dependency graph so Dependabot can alert on vulnerable dependencies.
 
 ## 📈 Performance Considerations
 
