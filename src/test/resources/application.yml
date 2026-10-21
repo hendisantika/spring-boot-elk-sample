@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: customer-service
+
+  jpa:
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: create-drop
+    show-sql: true
+
+  datasource:
+    url: jdbc:h2:mem:customer-service-db;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  docker:
+    compose:
+      enabled: false
