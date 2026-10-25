@@ -44,7 +44,7 @@ services:
       - elk-network
 
   mysql:
-    image: mysql:9.7.1
+    image: mysql:26.10.0
     container_name: mysql
     restart: always
     ports:
