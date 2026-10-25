@@ -1,4 +1,4 @@
-FROM amazoncorretto:25-alpine3.22
+FROM amazoncorretto:26-alpine3.22
 LABEL authors="hendisantika"
 
 WORKDIR /app
